@@ -1,0 +1,1 @@
+We evaluated the performance of the above clustering algorithms in clustering accuracy (Acc), adjusted mutual information (AMI) and adjusted rand index (ARI). These three metrics are very popular for testing the performance of clustering algorithms [25] . The larger the benchmark values the better is the clustering. The upper bounds of the three benchmarks are all 1.
