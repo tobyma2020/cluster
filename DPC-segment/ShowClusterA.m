@@ -3,11 +3,11 @@ function  ShowClusterA( A,ctitle )
 %数据格式为三列，前两列是二维数据，最后一列是类别  x,y,c  
 %最多显示7中类别的聚类
 
-colors=['r','g','b','y','m','c','k',[0.4 0.6 0.7],[0.2 0.2 0.2],[0.2 0.6 0.2],[0.7 0.6 0.7]];
+colors=['r','g','b','y','m','c','k'];
 figure;
-for i=1:length(unique(A(:,3)))
+for i=1:7
     ir = find(A(:,3)==i);         % 返回行索引   
-    scatter(A(ir,1),A(ir,2),colors(mod(i,length(colors))+1));
+    scatter(A(ir,1),A(ir,2),colors(i));
     hold on
 end
 hold off

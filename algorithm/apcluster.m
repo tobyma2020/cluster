@@ -44,6 +44,7 @@
 % Copyright (c) B.J. Frey & D. Dueck (2006). This software may be 
 % freely used and distributed for non-commercial purposes.
 %          (RUN APCLUSTER WITHOUT ARGUMENTS FOR DEMO CODE)
+% À´×ÔÍøÕ¾ http://www.psi.toronto.edu/index.php?q=affinity%20propagation
 function [idx,netsim,dpsim,expref]=apcluster(s,p,varargin);
 if nargin==0, % display demo
 	fprintf('Affinity Propagation (APCLUSTER) sample/demo code\n\n');

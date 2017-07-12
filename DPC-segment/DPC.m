@@ -61,7 +61,7 @@ B=pdist2(A,A,'minkowski',2);
 
     %% 确定 dc  
 
-    percent=8.0;  
+    percent=2.0;  
 %     fprintf('average percentage of neighbours (hard coded): %5.6f\n', percent);  
 
     position=round(N*percent/100); %% round 是一个四舍五入函数  
@@ -148,11 +148,8 @@ B=pdist2(A,A,'minkowski',2);
 % 
 %     %% 人为指定一个位置，感觉就没有那么 auto 了 :-)  
 %     figure('Position',[6 72 scrsz(3)/4. scrsz(4)/1.3]);  
-%% 数据归一化
-rho=mapminmax(rho,0,1);
-delta=mapminmax(delta,0,1);
-   
-%% ind 和 gamma 在后面并没有用到  
+
+    %% ind 和 gamma 在后面并没有用到  
 %     ind=zeros(ND);
 %     gamma=zeros(ND);
     for i=1:ND  
