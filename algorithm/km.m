@@ -5,8 +5,8 @@ close all;
 %% 读取数据
 % AA=load('F:\matlabwork\cluster\dateset\flame.txt');K=2;
 % AA=load('F:\matlabwork\cluster\dateset\Aggregation.txt');K=7;
-% AA=load('F:\matlabwork\cluster\dateset\pathbased.txt');K=3;
-AA=load('F:\matlabwork\cluster\dateset\spiral.txt');K=3;
+AA=load('F:\matlabwork\cluster\dateset\pathbased.txt');K=3;
+% AA=load('F:\matlabwork\cluster\dateset\spiral.txt');K=3;
 % AA=load('F:\matlabwork\cluster\dateset\s2.txt');K=4;
 
 %% 数据列归一化 
@@ -24,9 +24,9 @@ ShowClusterA(A,'origin spiral')
 
 %% 显示聚类结果
 %kmeans聚类
-[cc,Dsum2,z2] = kmeans(A(:,[1,2]),K)
-B=[A(:,[1,2]),cc];
-ShowClusterA(B,'kmean spiral')
+% [cc,Dsum2,z2] = kmeans(A(:,[1,2]),K)
+% B=[A(:,[1,2]),cc];
+% ShowClusterA(B,'kmean spiral')
 % 
 % %FCM聚类
 % [centers,U] = fcm(A(:,[1,2]),K);
@@ -70,8 +70,9 @@ ShowClusterA(B,'kmean spiral')
 ret=DPC(A(:,[1,2]),K);
 
 F=[A(:,[1,2]),ret{2}'];
-ShowClusterA(F,'DBC Clustering ')
-
+ShowClusterA(F,'DBC Clustering ');
+cc=A(ret{1},[1,2]);
+scatter(cc(:,1),cc(:,2),'filled','d','r');
 %% 指标评判
 %有label和没有label的
 

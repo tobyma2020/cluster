@@ -61,7 +61,7 @@ B=pdist2(A,A,'minkowski',2);
 
     %% 确定 dc  
 
-    percent=8.0;  
+    percent=2.0;  
 %     fprintf('average percentage of neighbours (hard coded): %5.6f\n', percent);  
 
     position=round(N*percent/100); %% round 是一个四舍五入函数  
@@ -165,9 +165,14 @@ delta=mapminmax(delta,0,1);
    
     
     %这边可以测试下选择2或者3个的效果是否，尝试了3，7，17;3类的时候效果最好    
-  
+     % [~,yy]=sort(delta,'descend');
+     % sta_d=std(delta);
+    % class_num=length(find(delta>3*sta_d));
+    % cccc=yy(1:class_num);
+    %基于正态分布的一元离群点检测方法 
+ 
     std_val=std(gamma_sorted);
-    class_num=length(find(gamma_sorted>3*std_val));
+    class_num=length(find(gamma_sorted>5*std_val));
     cccc=gamma_order(1:class_num);
     %% 利用 rho 和 delta 画出一个所谓的“决策图”  
 
@@ -338,6 +343,6 @@ delta=mapminmax(delta,0,1);
     ret{1}=icl;
     ret{2}=cl;
     ret{3}=gamma_sorted;
-
+    ret{4}=halo;
 end
 
