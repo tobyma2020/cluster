@@ -4,13 +4,15 @@ function  ShowClusterA( A,ctitle )
 %最多显示7中类别的聚类
 
 % colors=['r','g','b','y','m','c','k'];
-N=unique(A(:,3));
+N=length(unique(A(:,3)));
 lineStyles = linspecer(N);
 lineStyles=[[1,1,1];lineStyles];
 figure;
-for i=1:N
-    ir = find(A(:,3)==i);         % 返回行索引   
-    scatter(A(ir,1),A(ir,2),uint8(lineStyles(kk+1,:)*255));
+for i=0:N
+    ir = find(A(:,3)==i);         % 返回行索引  
+    if(~isempty(ir))
+    scatter(A(ir,1),A(ir,2),'MarkerFaceColor',lineStyles(i+1,:));
+    end
     hold on
 end
 hold off

@@ -5,16 +5,16 @@ close all;
 %% 读取数据
 % AA=load('F:\matlabwork\cluster\dateset\flame.txt');K=2;
 % AA=load('F:\matlabwork\cluster\dateset\Aggregation.txt');K=7;
-AA=load('F:\matlabwork\cluster\dateset\pathbased.txt');K=3;
+% AA=load('F:\matlabwork\cluster\dateset\pathbased.txt');K=3;
 % AA=load('F:\matlabwork\cluster\dateset\spiral.txt');K=3;
-% AA=load('F:\matlabwork\cluster\dateset\s2.txt');K=4;
+AA=load('F:\matlabwork\cluster\dateset\s2.txt');K=4;
 
 %% 数据列归一化 
 AA1=normalization(AA(:,[1,2]));
-A=[AA1,AA(:,3)];
+% A=[AA1,AA(:,3)];
 %no label
-% LAB=ones(length(AA(:,1)),1);
-% A=[AA1,LAB];
+LAB=ones(length(AA(:,1)),1);
+A=[AA1,LAB];
 
 %聚类
 %% 显示原始结果 
@@ -72,7 +72,7 @@ ret=DPC(A(:,[1,2]),K);
 F=[A(:,[1,2]),ret{2}'];
 ShowClusterA(F,'DBC Clustering ');
 cc=A(ret{1},[1,2]);
-scatter(cc(:,1),cc(:,2),'filled','d','r');
+figure;scatter(cc(:,1),cc(:,2),'filled','d','r');
 %% 指标评判
 %有label和没有label的
 

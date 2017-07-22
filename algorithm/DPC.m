@@ -165,10 +165,10 @@ delta=mapminmax(delta,0,1);
    
     
     %这边可以测试下选择2或者3个的效果是否，尝试了3，7，17;3类的时候效果最好    
-     % [~,yy]=sort(delta,'descend');
-     % sta_d=std(delta);
-    % class_num=length(find(delta>3*sta_d));
-    % cccc=yy(1:class_num);
+%      [~,yy]=sort(delta,'descend');
+%      sta_d=std(delta);
+%     class_num=length(find(delta>3*sta_d));
+%     cccc=yy(1:class_num);
     %基于正态分布的一元离群点检测方法 
  
     std_val=std(gamma_sorted);
@@ -344,5 +344,7 @@ delta=mapminmax(delta,0,1);
     ret{2}=cl;
     ret{3}=gamma_sorted;
     ret{4}=halo;
+    ret{5}=delta;
+    ret{6}=rho;
 end
 
