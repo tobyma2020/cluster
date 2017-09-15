@@ -1,4 +1,4 @@
-function [ ret ] = DPC( A,class_num )
+function [ ret ] = DPC( A,class_num,k)
 %CFSFDP 输入距离矩阵返回最大聚类的所有点
 %   此处显示详细说明
 %     xx=load('example_distances.dat');
@@ -60,8 +60,9 @@ B=pdist2(A,A,'minkowski',2);
     end  
 
     %% 确定 dc  
-
-    percent=2.0;  
+%     hmise=mean(1.06*std(A,0,1)*row_b^(-1.0/k));
+%     percent=hmise*100;  
+    percent=8.0;
 %     fprintf('average percentage of neighbours (hard coded): %5.6f\n', percent);  
 
     position=round(N*percent/100); %% round 是一个四舍五入函数  
@@ -81,13 +82,21 @@ B=pdist2(A,A,'minkowski',2);
        rho(i)=0.;  
      end  
 
+    %ksdensity核密度估计
+%     hmise=mean(1.06*std(B,0,1)*row_b^(-0.2));
+%     p = kde(A', hmise ); 
+    p=kde(A', 'rot');
+    rho=evaluate(p, A');
     % Gaussian kernel  
-    for i=1:ND-1  
-      for j=i+1:ND  
-         rho(i)=rho(i)+exp(-(dist(i,j)/dc)*(dist(i,j)/dc));  
-         rho(j)=rho(j)+exp(-(dist(i,j)/dc)*(dist(i,j)/dc));  
-      end  
-    end  
+%     for i=1:ND-1  
+%       for j=i+1:ND  
+%          rho(i)=rho(i)+exp(-(dist(i,j)/dc)*(dist(i,j)/dc));  
+%          rho(j)=rho(j)+exp(-(dist(i,j)/dc)*(dist(i,j)/dc));  
+%       end  
+%     end  
+%             figure
+%         subplot(1,2,1);plot(rho);title('origin rho');    
+%         subplot(1,2,2);plot(rho2);title('kde rho'); 
 
     % "Cut off" kernel  
     %for i=1:ND-1  
@@ -168,19 +177,22 @@ delta=mapminmax(delta,0,1);
 %      [~,yy]=sort(delta,'descend');
 %      sta_d=std(delta);
 %     class_num=length(find(delta>3*sta_d));
+% %     class_num=2;
 %     cccc=yy(1:class_num);
     %基于正态分布的一元离群点检测方法 
  
     std_val=std(gamma_sorted);
-    class_num=length(find(gamma_sorted>5*std_val));
+    class_num=length(find(gamma_sorted>3*std_val));
+%     class_num=3;
     cccc=gamma_order(1:class_num);
     %% 利用 rho 和 delta 画出一个所谓的“决策图”  
 
 %     subplot(2,1,1)  
-%     tt=plot(rho(:),delta(:),'o','MarkerSize',5,'MarkerFaceColor','k','MarkerEdgeColor','k');  
-%     title ('Decision Graph','FontSize',15.0)  
-%     xlabel ('\rho')  
-%     ylabel ('\delta')  
+    figure;
+    tt=plot(rho(:),delta(:),'o','MarkerSize',5,'MarkerFaceColor','k','MarkerEdgeColor','k');  
+    title ('Decision Graph','FontSize',15.0)  
+    xlabel ('\rho')  
+    ylabel ('\delta')  
 % 
 %     subplot(2,1,1)  
 %     rect = getrect(1);   
@@ -340,11 +352,13 @@ delta=mapminmax(delta,0,1);
 %         ret=ret2;
 %     end
     %% 在多个进行判断的时候，直接返回中心点及cluster点
-    ret{1}=icl;
-    ret{2}=cl;
-    ret{3}=gamma_sorted;
-    ret{4}=halo;
-    ret{5}=delta;
-    ret{6}=rho;
+    ret.icl=icl;
+    ret.cl=cl;
+    ret.gamma_sorted=gamma_sorted;
+    ret.halo=halo;
+    ret.delta=delta;
+    ret.rho=rho;
+    ret.nneigh=nneigh;
+    ret.dc=dc;
 end
 
